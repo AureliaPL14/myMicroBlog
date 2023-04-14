@@ -13,8 +13,8 @@
             {{ encore_entry_script_tags('app') }}
         {% endblock %}
     </head>
-    <body>
-        <nav class="bg-primary navbar navbar-expand-lg justify-content-evenly">
+    <body style="background: rgb(245, 245, 245)">
+        <nav class="bg-primary navbar fixed-top navbar-expand-lg justify-content-evenly">
             <a class="navbar-brand text-white p-2" href="{{ path('app_index') }}">My Micro Blog</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -37,6 +37,7 @@
                 </div>
             </div>
         </nav>
+        <div class="mb-4" style="height: 3rem"></div>
         {% block body %}{% endblock %}
     </body>
 </html>

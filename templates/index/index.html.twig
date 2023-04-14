@@ -1,14 +1,36 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Accueil - My Micro Blog{% endblock %}
+{% block title %}Home - My Micro Blog{% endblock %}
 
 {% block body %}
 
-<div class="container">
-    {{ form_start(create_post_form) }}
-    {{ form_end(create_post_form) }}
-    <div>
-        <p>yay</p>
+    <div class="container">
+        {% if app.user %}
+            {% include 'index/_create_post_form.html.twig' with {'form': create_post_form} only %}
+        {% endif %}
+        {% include 'components/_timeline.html.twig' with {'timeline': timeline} only %}
     </div>
-</div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="replyModal" tabindex="-1" aria-labelledby="replyModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="replyModalLabel">Reply</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    {{ form_start(reply_form) }}
+                    <div class="d-flex flex-row justify-content-end border rounded bg-white">
+                        {{ form_widget(reply_form.content)}}
+                        {{ form_widget(reply_form.parent) }}
+                        <div class="d-flex flex-column justify-content-evenly p-2">
+                            <button type="submit" class="btn btn-primary rounded-pill"><i class="fa-solid fa-paper-plane" title="Publish"></i></button>
+                        </div>
+                    </div>
+                    {{ form_end(reply_form) }}
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

@@ -1,0 +1,26 @@
+<div class="card shadow-lg border-light my-3">
+    <div class="card-body">
+        <div class="mb-2">
+            <a href="{{ path('app_profile', {user: post.author}) }}" class="text-decoration-none d-flex flex-row text-black">
+                <img src="{{ post.author.profilePicture
+                ? asset(post.author.profilePicture)
+                : asset('/build/images/pfp/defaultpfp.png') }}" width="60rem" class="rounded-circle me-1"
+                     alt="{{ post.author.username }} profile picture"/>
+                <div>
+                    <b>
+                        {{ post.author.displayName }}
+                    </b><br>
+                    <i class="text-secondary">@{{ post.author.username }}</i>
+                </div>
+            </a>
+        </div>
+        <p>{{ post.content }}</p>
+        <i class="text-secondary">{{ post.createdAt.format('F j, Y H:i') }}</i>
+    </div>
+    <div class="card-footer d-flex flex-row justify-content-evenly">
+        <button class="btn btn-light text-primary w-100" data-bs-toggle="modal" data-bs-target="#replyModal"
+                data-id="{{ post.id }}" onclick="hidden.value = this.data-id">
+            <i class="fa-regular fa-comments"></i>
+        </button>
+    </div>
+</div>

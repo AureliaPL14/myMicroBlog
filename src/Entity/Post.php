@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 #[ORM\Entity(repositoryClass: PostRepository::class)]
 class Post extends AbstractEntity
@@ -21,6 +22,7 @@ class Post extends AbstractEntity
     private ?User $author = null;
 
     #[ORM\Column(type: Types::TEXT)]
+    #[NotBlank(message: 'You can\'t send an empty post')]
     private ?string $content = null;
 
     #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'replies')]
@@ -31,6 +33,7 @@ class Post extends AbstractEntity
 
     public function __construct()
     {
+        parent::__construct();
         $this->replies = new ArrayCollection();
     }
 
