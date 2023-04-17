@@ -1,6 +1,6 @@
-# Symfony6-docker
+# myMicroBlog
 
-Starter kit pour applications Symfony
+Application de micro-blogging
 
 ## Specifications:
 - php 8.1 (à partir de l'image v4-fpm de the-coding-machine)
