@@ -22,10 +22,10 @@
                     {% if app.user == user %}
                         <a href="#" class="btn btn-outline-secondary rounded-pill p-2 col" style="max-width: 8rem">Edit</a>
                     {% else %}
-                        {% if user.followings.contains(app.user) %}
-                            <a href="#" class="btn btn-danger rounded-pill p-2 col" style="max-width: 8rem">Unfollow</a>
+                        {% if user.followers.contains(app.user) %}
+                            <a href="{{ path('app_unfollow', {'unfollowed': user}) }}" class="btn btn-danger rounded-pill p-2 col" style="max-width: 8rem">Unfollow</a>
                         {% else %}
-                            <a href="#" class="btn btn-primary rounded-pill p-2 col" style="max-width: 8rem">Follow</a>
+                            <a href="{{ path('app_follow', {'followed': user}) }}" class="btn btn-primary rounded-pill p-2 col" style="max-width: 8rem">Follow</a>
                         {% endif %}
                     {% endif %}
                 </div>

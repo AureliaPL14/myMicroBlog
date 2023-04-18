@@ -22,7 +22,7 @@ class FollowController extends AbstractController
     }
 
     #[Route('/follow/{followed}', name: 'app_follow')]
-    public function follow(Request $request, #[CurrentUser] User $following, User $followed, EntityManagerInterface $entityManager): RedirectResponse
+    public function follow(#[CurrentUser] User $following, User $followed, EntityManagerInterface $entityManager): RedirectResponse
     {
         $followed->addFollower($following);
         $entityManager->flush();
@@ -30,6 +30,10 @@ class FollowController extends AbstractController
     }
 
     #[Route('/unfollow/{unfollowed}', name: 'app_unfollow')]
-    public function unfollow()
-    {}
+    public function unfollow(#[CurrentUser] User $following, User $unfollowed, EntityManagerInterface $entityManager): RedirectResponse
+    {
+        $unfollowed->removeFollower($following);
+        $entityManager->flush();
+        return $this->redirectToRoute('app_profile', ['user' => $unfollowed]);
+    }
 }

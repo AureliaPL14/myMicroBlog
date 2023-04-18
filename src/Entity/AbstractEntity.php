@@ -8,6 +8,11 @@ use Doctrine\ORM\Mapping as ORM;
 
 abstract class AbstractEntity
 {
+    #[Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column]
+    protected ?int $id = null;
+
     #[ORM\Column]
     protected DateTime $createdAt;
 

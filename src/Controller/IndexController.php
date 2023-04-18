@@ -31,7 +31,7 @@ class IndexController extends AbstractController
             return $this->redirectToRoute('app_index');
         }
 
-        $timeline = $entityManager->getRepository(Post::class)->findAll();
+        $timeline = $entityManager->getRepository(Post::class)->findByFollow($user);
 
         return $this->render('index/index.html.twig', [
             'create_post_form' => $form->createView(),
