@@ -1,8 +1,8 @@
 <div class="card shadow-lg border-light mb-5">
     <div class="card-body">
         {% if post.parent %}
+            {# todo: add a render limit #}
             {% include 'components/_post.html.twig' with {post: post.parent} only %}
-            <div class="border-start border-secondary border-2" style="height: 2rem; margin-left: 2rem"></div>
         {% endif %}
         <div class="mb-2">
             <a href="{{ path('app_profile', {user: post.author}) }}" class="text-decoration-none d-flex flex-row text-black">

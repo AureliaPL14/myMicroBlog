@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Form\EditProfileFormType;
 use App\Traits\PostTrait;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -22,6 +23,26 @@ class ProfileController extends AbstractController
         return $this->render('profile/index.html.twig', [
             'user' => $user,
             'reply_form' => $replyForm
+        ]);
+    }
+
+    #[Route('/edit', name: 'app_edit')]
+    public function edit(Request $request, EntityManagerInterface $entityManager, #[CurrentUser] User $user): Response
+    {
+        $editProfileForm = $this->createForm(EditProfileFormType::class, $user);
+        $editProfileForm->handleRequest($request);
+
+        if ($editProfileForm->isSubmitted() && $editProfileForm->isValid()) {
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_profile', [
+                'user' => $user,
+                'reply_form' => $this->replyFormTool($request, $entityManager, $this->createPost($user))
+            ]);
+        }
+        return $this->render('profile/edit.html.twig', [
+            'user' => $user,
+            'edit_profile_form' => $editProfileForm->createView()
         ]);
     }
 }

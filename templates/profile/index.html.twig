@@ -20,7 +20,7 @@
                 <div class="row">
                     <h2 class="col">{{ user.displayName }}</h2>
                     {% if app.user == user %}
-                        <a href="#" class="btn btn-outline-secondary rounded-pill p-2 col" style="max-width: 8rem">Edit</a>
+                        <a href="{{ path('app_edit') }}" class="btn btn-outline-secondary rounded-pill p-2 col" style="max-width: 8rem">Edit</a>
                     {% else %}
                         {% if user.followers.contains(app.user) %}
                             <a href="{{ path('app_unfollow', {'unfollowed': user}) }}" class="btn btn-danger rounded-pill p-2 col" style="max-width: 8rem">Unfollow</a>
