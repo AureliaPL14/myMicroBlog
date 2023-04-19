@@ -1,5 +1,9 @@
-<div class="card shadow-lg border-light my-3">
+<div class="card shadow-lg border-light mb-5">
     <div class="card-body">
+        {% if post.parent %}
+            {% include 'components/_post.html.twig' with {post: post.parent} only %}
+            <div class="border-start border-secondary border-2" style="height: 2rem; margin-left: 2rem"></div>
+        {% endif %}
         <div class="mb-2">
             <a href="{{ path('app_profile', {user: post.author}) }}" class="text-decoration-none d-flex flex-row text-black">
                 <img src="{{ post.author.profilePicture
@@ -19,7 +23,7 @@
     </div>
     <div class="card-footer d-flex flex-row justify-content-evenly">
         <button class="btn btn-light text-primary w-100" data-bs-toggle="modal" data-bs-target="#replyModal"
-                data-id="{{ post.id }}" onclick="hidden.value = this.data-id">
+                data-bs-id="{{ post.id }}">
             <i class="fa-regular fa-comments"></i>
         </button>
     </div>

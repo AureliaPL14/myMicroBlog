@@ -23,7 +23,6 @@ class CreatePostFormType extends AbstractType
             ->add('content', TextareaType::class, [
                 'attr' => ['style' => 'resize: none; height: 10rem; border: none; box-shadow: none']
             ])
-            ->add('parent', HiddenType::class)
         ;
     }
 

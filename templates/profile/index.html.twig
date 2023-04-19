@@ -36,6 +36,6 @@
             </div>
         </div>
         <hr class="mx-2">
-        {% include 'components/_timeline.html.twig' with {'timeline': user.posts} only %}
+        {% include 'components/_timeline.html.twig' with {'timeline': user.posts, 'reply_form': reply_form} only %}
     </div>
 {% endblock %}

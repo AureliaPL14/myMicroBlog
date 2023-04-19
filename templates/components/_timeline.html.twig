@@ -3,3 +3,35 @@
         {% include 'components/_post.html.twig' with {'post': post} only %}
     {% endfor %}
 </div>
+
+<!-- Modal -->
+<div class="modal fade" id="replyModal" tabindex="-1" aria-labelledby="replyModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="replyModalLabel">Reply</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                {{ form_start(reply_form) }}
+                    <div class="d-flex flex-row justify-content-end border rounded bg-white">
+                        {{ form_widget(reply_form.content)}}
+                        {{ form_widget(reply_form.parent) }}
+                        <div class="d-flex flex-column justify-content-evenly p-2">
+                            <button type="submit" class="btn btn-primary rounded-pill"><i class="fa-solid fa-paper-plane" title="Publish"></i></button>
+                        </div>
+                    </div>
+                {{ form_end(reply_form) }}
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    const replyModal = $('#replyModal');
+    replyModal.on('show.bs.modal', event => {
+        const button = event.relatedTarget;
+        const id = button.getAttribute('data-bs-id');
+        const hidden = $('#reply_post_form_parent');
+        hidden.attr('value', id);
+    })
+</script>
