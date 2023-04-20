@@ -10,6 +10,8 @@
 /config/secrets/prod/prod.decrypt.private.php
 /public/build/
 /public/bundles/
+/public/profile_pictures/
+/public/banner_pictures/
 /var/*
 !/var/.gitkeep
 /vendor/

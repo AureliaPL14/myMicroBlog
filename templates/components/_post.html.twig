@@ -8,7 +8,7 @@
             <a href="{{ path('app_profile', {user: post.author}) }}" class="text-decoration-none d-flex flex-row text-black">
                 <img src="{{ post.author.profilePicture
                 ? asset(post.author.profilePicture)
-                : asset('/build/images/pfp/defaultpfp.png') }}" width="60rem" class="rounded-circle me-1"
+                : asset('/build/images/profile_pictures/defaultpfp.png') }}" width="60rem" height="60rem" style="object-fit: cover" class="rounded-circle me-1"
                      alt="{{ post.author.username }} profile picture"/>
                 <div>
                     <b>

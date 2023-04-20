@@ -7,15 +7,16 @@
         <div id="profile_main">
             <div id="profile_banner" class="bg-primary w-100 rounded-top" style="height: 12rem">
                 {% if user.banner %}
-                    <img src="#" alt="{{ user.username }} banner"/>
+                    <img src="{{ user.banner }}" class="w-100 h-100 rounded-top" style="object-fit: cover" alt="{{ user.username }} banner"/>
                 {% endif %}
             </div>
             <div id="profile_info" class="container px-4">
-                <div class="row" style="width: 9rem">
-                <img src="{{ user.profilePicture
-                    ? asset(user.profilePicture)
-                    : asset('/build/images/pfp/defaultpfp.png') }}" class="rounded-circle"
-                     style="position: relative; bottom: 4rem" alt="{{ user.username }} profile picture"/>
+                <div class="row w-100">
+                    <img src="{{ user.profilePicture
+                        ? user.profilePicture
+                        : asset('/build/images/pfp/defaultpfp.png') }}" class="rounded-circle col-auto p-0 ratio-1x1"
+                         style="position: relative; bottom: 4rem; width: 9rem; height: 9rem; object-fit: cover" alt="{{ user.username }} profile picture"/>
+                    <blockquote class="col-auto m-4 blockquote"><i class=" fa fa-quote-left"></i> {{ user.bio }} <i class="fa fa-quote-right"></i></blockquote>
                 </div>
                 <div class="row">
                     <h2 class="col">{{ user.displayName }}</h2>
@@ -32,7 +33,6 @@
                 <div class="row">
                     <i class="text-secondary">@{{ user.username }}</i>
                 </div>
-                <p>{{ user.bio }}</p>
             </div>
         </div>
         <hr class="mx-2">
