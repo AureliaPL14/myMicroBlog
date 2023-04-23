@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Home - My Micro Blog{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+        <div class="container d-flex flex-column-reverse justify-content-center border-start border-end" style="width: 35rem">
+            {{ form_start(form) }}
+            <div class="d-flex flex-row justify-content-end border rounded bg-white mb-5">
+                {{ form_widget(form.content)}}
+                <div class="d-flex flex-column justify-content-evenly p-2">
+                    <button type="submit" class="btn btn-primary rounded-pill">
+                        <i class="fa-solid fa-paper-plane" title="Publish"></i>
+                    </button>
+                </div>
+            </div>
+            {{ form_end(form) }}
+        </div>
+    </div>
+{% endblock %}

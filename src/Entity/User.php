@@ -59,12 +59,16 @@ class User extends AbstractEntity implements UserInterface, PasswordAuthenticate
     #[ORM\ManyToMany(targetEntity: self::class, mappedBy: 'followings')]
     private Collection $followers;
 
+    #[ORM\ManyToMany(targetEntity: Conversation::class, mappedBy: 'users')]
+    private Collection $conversations;
+
     public function __construct()
     {
         parent::__construct();
         $this->posts = new ArrayCollection();
         $this->followings = new ArrayCollection();
         $this->followers = new ArrayCollection();
+        $this->conversations = new ArrayCollection();
     }
 
     /**
@@ -322,6 +326,33 @@ class User extends AbstractEntity implements UserInterface, PasswordAuthenticate
     {
         if ($this->followers->removeElement($follower)) {
             $follower->removeFollowing($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Conversation>
+     */
+    public function getConversations(): Collection
+    {
+        return $this->conversations;
+    }
+
+    public function addConversation(Conversation $conversation): self
+    {
+        if (!$this->conversations->contains($conversation)) {
+            $this->conversations->add($conversation);
+            $conversation->addUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeConversation(Conversation $conversation): self
+    {
+        if ($this->conversations->removeElement($conversation)) {
+            $conversation->removeUser($this);
         }
 
         return $this;

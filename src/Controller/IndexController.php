@@ -4,11 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Post;
 use App\Entity\User;
-use App\Form\CreatePostFormType;
-use App\Form\RegistrationFormType;
-use App\Form\ReplyPostFormType;
 use App\Traits\PostTrait;
-use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;

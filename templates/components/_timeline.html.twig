@@ -1,6 +1,8 @@
 <div class="container d-flex flex-column-reverse justify-content-center border-start border-end" style="width: 35rem">
     {% for post in timeline %}
-        {% include 'components/_post.html.twig' with {'post': post} only %}
+        {% if post.replies|length == 0 %}
+            {% include 'components/_post.html.twig' with {'post': post} only %}
+        {% endif %}
     {% endfor %}
 </div>
 

@@ -23,7 +23,7 @@ class Post extends AbstractEntity
     #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'replies')]
     private ?self $parent = null;
 
-    #[ORM\OneToMany(mappedBy: 'parentId', targetEntity: self::class)]
+    #[ORM\OneToMany(mappedBy: 'parent', targetEntity: self::class)]
     private Collection $replies;
 
     public function __construct()
@@ -85,7 +85,7 @@ class Post extends AbstractEntity
     {
         if (!$this->replies->contains($reply)) {
             $this->replies->add($reply);
-            $reply->setParentId($this);
+            $reply->setParent($this);
         }
 
         return $this;
@@ -95,8 +95,8 @@ class Post extends AbstractEntity
     {
         if ($this->replies->removeElement($reply)) {
             // set the owning side to null (unless already changed)
-            if ($reply->getParentId() === $this) {
-                $reply->setParentId(null);
+            if ($reply->getParent() === $this) {
+                $reply->setParent(null);
             }
         }
 

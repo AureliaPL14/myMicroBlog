@@ -7,7 +7,8 @@
         <div id="profile_main">
             <div id="profile_banner" class="bg-primary w-100 rounded-top" style="height: 12rem">
                 {% if user.banner %}
-                    <img src="{{ user.banner }}" class="w-100 h-100 rounded-top" style="object-fit: cover" alt="{{ user.username }} banner"/>
+                    <img src="{{ user.banner }}"
+                         class="w-100 h-100 rounded-top" style="object-fit: cover" alt="{{ user.username }} banner"/>
                 {% endif %}
             </div>
             <div id="profile_info" class="container px-4">
@@ -16,17 +17,24 @@
                         ? user.profilePicture
                         : asset('/build/images/pfp/defaultpfp.png') }}" class="rounded-circle col-auto p-0 ratio-1x1"
                          style="position: relative; bottom: 4rem; width: 9rem; height: 9rem; object-fit: cover" alt="{{ user.username }} profile picture"/>
-                    <blockquote class="col-auto m-4 blockquote"><i class=" fa fa-quote-left"></i> {{ user.bio }} <i class="fa fa-quote-right"></i></blockquote>
+                    {% if user.bio %}
+                        <blockquote class="col-auto m-4 blockquote">
+                            <i class=" fa fa-quote-left"></i> {{ user.bio }} <i class="fa fa-quote-right"></i>
+                        </blockquote>
+                    {% endif %}
                 </div>
                 <div class="row">
                     <h2 class="col">{{ user.displayName }}</h2>
                     {% if app.user == user %}
-                        <a href="{{ path('app_edit') }}" class="btn btn-outline-secondary rounded-pill p-2 col" style="max-width: 8rem">Edit</a>
+                        <a href="{{ path('app_edit') }}"
+                           class="btn btn-outline-secondary rounded-pill p-2 col" style="max-width: 8rem">Edit</a>
                     {% else %}
                         {% if user.followers.contains(app.user) %}
-                            <a href="{{ path('app_unfollow', {'unfollowed': user}) }}" class="btn btn-danger rounded-pill p-2 col" style="max-width: 8rem">Unfollow</a>
+                            <a href="{{ path('app_unfollow', {'unfollowed': user}) }}"
+                               class="btn btn-danger rounded-pill p-2 col" style="max-width: 8rem">Unfollow</a>
                         {% else %}
-                            <a href="{{ path('app_follow', {'followed': user}) }}" class="btn btn-primary rounded-pill p-2 col" style="max-width: 8rem">Follow</a>
+                            <a href="{{ path('app_follow', {'followed': user}) }}"
+                               class="btn btn-primary rounded-pill p-2 col" style="max-width: 8rem">Follow</a>
                         {% endif %}
                     {% endif %}
                 </div>
