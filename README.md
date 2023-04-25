@@ -1,30 +1,34 @@
 # myMicroBlog
 
-Application de micro-blogging
+Micro-blogging application including following and direct messages systems
 
 ## Specifications:
-- php 8.1 (à partir de l'image v4-fpm de the-coding-machine)
-- symfony 6.2 mode webapp, avec webpack-encore
-- composer 2.5
-- postgresql 15
-- nginx 1.23.4-alpine
-- node-js 19-alpine (npm@latest, jquery 3.6, bootstrap 5 et fontawesome 6)
+- PHP 8.1
+- Symfony 6.2 with webpack-encore
+- Composer 2.5
+- PostgreSQL 15
+- NGINX 1.23.4-alpine
+- node-js 19-alpine (npm@latest, jquery 3.6, bootstrap 5 and fontawesome 6)
 - mailcatcher
-- Versions utilisées pour le build : docker-20.10.12 / docker-compose-1.29.2
+- Versions used to build : docker-20.10.12 / docker-compose-1.29.2
 
-## Quality tools:
-- phpstan 1.10
-- squizlabs/php_codesniffer 3.7
-- phpunit 9.5
+## Installation :
+- make install : Build docker images, composer install, npm install and build assets
+- make start : Start PHP, NGINX and PostgreSQL images
+- make stop : Stop project containers
+- make connect / node-connect : Shell CLI in php / NodeJS containers
+- make clear : Empty cache
+- make composer-update : Update PHP vendors
+- make node-install : Install JS vendors
+- make node-build : JS and CSS assets compilation
 
-## Utilisation :
-- make install : build des images docker, composer install, npm install et build assets
-- make start : démarrage des images php, nginx et postgresql
-- make stop : arrêt des containers du projet
-- make connect / node-connect : shell dans les containers php / nodejs
-- make clear : vidage du cache
-- make composer-update : mise à jour des vendors php
-- make node-install : installation des vendors js
-- make node-build : compilation des assets js et scss
+## Easy start :
+- Go in project directory and use `make install`
+- Then use `make start`
+- In your browser go to http://localhost:8180
+- Done ! ✅
 
-- url par défaut en mode dev : http://localhost:8180
+## Screenshots:
+- ![Screenshot of the home page displaying a post with a reply from a different user](/screenshots/screenshot_home.png)
+- ![Screenshot of the profile page displaying a basic user informations, profile picture and banner picture](/screenshots/screenshot_profile.png)
+- ![Screenshot displaying the direct messaging system with some conversations on the sidebar and messages from the selected conversation in the center](/screenshots/screenshot_messenger.png)
