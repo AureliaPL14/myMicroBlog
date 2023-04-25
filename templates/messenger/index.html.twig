@@ -3,10 +3,10 @@
 {% block title %}Messenger - My Micro blog{% endblock %}
 
 {% block body %}
-    <div class="container">
+    <div class="container w-75 me-5">
         <div class="row border" style="height: 50rem">
             <div class="col-4 border-end p-0">
-                <a href="#" class="link-dark border-bottom btn btn-outline-light w-100 rounded-0">
+                <a href="{{ path('app_new_conversation') }}" class="link-dark border-bottom btn btn-outline-light w-100 rounded-0">
                     <div class="w-100 d-flex flex-row justify-content-center" style="height: 5rem">
                         <div class="d-flex flex-column justify-content-center">
                             <div>
@@ -17,23 +17,50 @@
                     </div>
                 </a>
                 {% for conversation in app.user.conversations %}
-                    <a href="{{ path('app_conversation', {id: conversation}) }}" class="link-dark border-bottom btn btn-outline-light w-100 rounded-0">
+                    <a href="{{ path('app_messenger', {conversation: conversation.id}) }}" class="link-dark border-bottom btn btn-outline-light w-100 rounded-0">
                         <div class="w-100 d-flex flex-row justify-content-center" style="height: 5rem">
                             <div class="d-flex flex-column justify-content-center">
                                 <div>
-                                    <i class="border border-dark rounded-circle p-2 text-dark fa fa-envelope"></i>
-                                    <b>New conversation</b>
+                                    <b>{{ conversation.name }}</b>
                                 </div>
                             </div>
                         </div>
                     </a>
                 {% endfor %}
             </div>
-            <div class="col-8">
-                <div class="d-flex flex-row justify-content-center">
+            <div class="col-8 " style="height: 50rem">
+                <div class="d-flex flex-column">
                     {% if conversation %}
-                        {% for messages in conversation.messages %}
-                        {% endfor %}
+                        <div class="container d-flex flex-column-reverse p-2" style="max-height: 44rem; overflow-y: auto; overflow-x: hidden">
+                            {% for message in conversation.messages|reverse %}
+                                {% include 'messenger/_message.html.twig' with {'message': message} only %}
+                            {% endfor %}
+                        </div>
+                        <div>
+                            {{ form_start(form, {'attr': {'class': 'w-100 pe-0'}}) }}
+                                <div class="d-flex flex-row justify-content-end border rounded bg-white mb-5">
+                                    {{ form_widget(form.content)}}
+                                    <div class="d-flex flex-column justify-content-evenly p-2">
+                                        <button type="submit" class="btn btn-primary rounded-pill">
+                                            <i class="fa-solid fa-paper-plane" title="Publish"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            {{ form_end(form) }}
+                        </div>
+                        <script>
+                            const textArea = $('#message_form_content');
+                            const form = $('[name="message_form"]');
+                            let shifted = false;
+
+                            $(document).on('keyup keydown', function(e) {shifted = e.shiftKey});
+                            textArea.on('keypress', function (e) {
+                                if (e.which === 13 && shifted === false) {
+                                    e.preventDefault();
+                                    form.submit();
+                                }
+                            });
+                        </script>
                     {% else %}
                         <h4>No conversation selected</h4>
                     {% endif %}

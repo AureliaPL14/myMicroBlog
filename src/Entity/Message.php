@@ -16,6 +16,10 @@ class Message extends AbstractEntity
     #[ORM\JoinColumn(nullable: false)]
     private ?Conversation $conversation = null;
 
+    #[ORM\ManyToOne]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $author = null;
+
     public function __construct()
     {
         parent::__construct();
@@ -46,6 +50,18 @@ class Message extends AbstractEntity
     public function setConversation(?Conversation $conversation): self
     {
         $this->conversation = $conversation;
+
+        return $this;
+    }
+
+    public function getAuthor(): ?User
+    {
+        return $this->author;
+    }
+
+    public function setAuthor(?User $author): self
+    {
+        $this->author = $author;
 
         return $this;
     }

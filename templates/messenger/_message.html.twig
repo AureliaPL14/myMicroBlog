@@ -1,0 +1,17 @@
+<div class="row {{ message.author == app.user ? 'justify-content-end' : ''}} mb-2">
+    <div class="col-auto m-2" style="max-width: 75%">
+        <div class="rounded-5 p-3 {{ message.author == app.user
+        ? 'bg-light border rounded-end'
+        : 'bg-primary text-light rounded-start' }}">
+            <a href="{{ path('app_profile', {user: message.author}) }}" class="{{
+            message.author == app.user
+            ? 'link-primary'
+            : 'link-light'
+            }} text-decoration-none">
+                <b>{{ message.author.displayName }}</b>
+            </a>
+            <p>{{ message.content }}</p>
+        </div>
+        <i class="text-secondary ms-3 mt-0">{{ message.createdAt.format('F j, Y H:i') }}</i>
+    </div>
+</div>

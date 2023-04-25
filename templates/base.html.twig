@@ -14,7 +14,7 @@
         {% endblock %}
     </head>
     <body style="background: rgb(245, 245, 245)">
-        <nav class="navbar fixed-top navbar-expand-lg justify-content-evenly" style="padding-left: 4rem; padding-right: 4rem">
+        <nav class="navbar fixed-top navbar-expand-lg justify-content-evenly" style="padding-left: 4rem; padding-right: 4rem; background: rgb(245, 245, 245)">
             <a class="navbar-brand text-primary p-2" href="{{ path('app_index') }}">My Micro Blog</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -33,22 +33,24 @@
             </div>
         </nav>
         <div class="mb-4" style="height: 3rem"></div>
-        <aside class="d-flex flex-column position-fixed flex-shrink-0 p-3" style="margin-left: 4rem">
-            <ul class="nav nav-pills flex-column mb-auto align-items-start">
-                <li class="nav-item text-center">
-                    <a href="{{ path('app_index') }}" class="btn btn-outline-primary border-0 rounded-pill p-3 my-3">
-                        <i class="fa fa-house"></i> Home
-                    </a>
-                </li>
-                <li class="nav-item text-center">
-                    <a href="{{ path('app_profile', {user: app.user}) }}"
-                       class="btn btn-outline-primary border-0 rounded-pill p-3 my-3"><i class="fa fa-user"></i> Profile</a>
-                </li>
-                <li class="nav-item text-center">
-                    <a href="{{ path('app_messenger') }}" class="btn btn-outline-primary border-0 rounded-pill p-3 my-3"><i class="fa fa-envelope"></i> Messages</a>
-                </li>
-            </ul>
-        </aside>
+        {% if app.user %}
+            <aside class="d-flex flex-column position-fixed flex-shrink-0 p-3" style="margin-left: 4rem">
+                <ul class="nav nav-pills flex-column mb-auto align-items-start">
+                    <li class="nav-item text-center">
+                        <a href="{{ path('app_index') }}" class="btn btn-outline-primary border-0 rounded-pill p-3 my-3">
+                            <i class="fa fa-house"></i> Home
+                        </a>
+                    </li>
+                    <li class="nav-item text-center">
+                        <a href="{{ path('app_profile', {user: app.user}) }}"
+                           class="btn btn-outline-primary border-0 rounded-pill p-3 my-3"><i class="fa fa-user"></i> Profile</a>
+                    </li>
+                    <li class="nav-item text-center">
+                        <a href="{{ path('app_messenger') }}" class="btn btn-outline-primary border-0 rounded-pill p-3 my-3"><i class="fa fa-envelope"></i> Messages</a>
+                    </li>
+                </ul>
+            </aside>
+        {% endif %}
         {% block body %}{% endblock %}
     </body>
 </html>

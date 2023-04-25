@@ -18,23 +18,28 @@ class IndexController extends AbstractController
     use PostTrait;
 
     #[Route('/', name: 'app_index')]
-    public function index(Request $request, #[CurrentUser] User $user, EntityManagerInterface $entityManager): Response
+    public function index(Request $request, EntityManagerInterface $entityManager): Response
     {
-        $post = $this->createPost($user);
-        $replyFormTool = $this->replyFormTool($request, $entityManager, $post);
-        $postFormTool = $this->freshPostTool($request, $entityManager, $post);
-        $timeline = $entityManager->getRepository(Post::class)->findByFollow($user);
+        $user = $this->getUser();
+        if ($user instanceof User) {
+            $post = $this->createPost($user);
+            $replyFormTool = $this->replyFormTool($request, $entityManager, $post);
+            $postFormTool = $this->freshPostTool($request, $entityManager, $post);
+            $timeline = $entityManager->getRepository(Post::class)->findByFollow($user);
 
-        if ($postFormTool instanceof RedirectResponse) {
-            return $postFormTool;
-        }
-        if ($replyFormTool instanceof RedirectResponse) {
-            return $replyFormTool;
+            if ($postFormTool instanceof RedirectResponse) {
+                return $postFormTool;
+            }
+            if ($replyFormTool instanceof RedirectResponse) {
+                return $replyFormTool;
+            }
+        } else {
+            $timeline = $entityManager->getRepository(Post::class)->findAll();
         }
 
         return $this->render('index/index.html.twig', [
-            'create_post_form' => $postFormTool->createView(),
-            'reply_form' => $replyFormTool->createView(),
+            'create_post_form' => isset($postFormTool) ? $postFormTool->createView() : null,
+            'reply_form' => isset($replyFormTool) ? $replyFormTool->createView() : null,
             'timeline' => $timeline
         ]);
     }

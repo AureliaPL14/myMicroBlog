@@ -8,7 +8,7 @@
             <a href="{{ path('app_profile', {user: post.author}) }}" class="text-decoration-none d-flex flex-row text-black">
                 <img src="{{ post.author.profilePicture
                 ? asset(post.author.profilePicture)
-                : asset('/build/images/profile_pictures/defaultpfp.png') }}" width="60rem" height="60rem" style="object-fit: cover" class="rounded-circle me-1"
+                : asset('/build/images/pfp/defaultpfp.png') }}" width="60rem" height="60rem" style="object-fit: cover" class="rounded-circle me-1"
                      alt="{{ post.author.username }} profile picture"/>
                 <div>
                     <b>
@@ -22,9 +22,15 @@
         <i class="text-secondary">{{ post.createdAt.format('F j, Y H:i') }}</i>
     </div>
     <div class="card-footer d-flex flex-row justify-content-evenly">
-        <button class="btn btn-light text-primary w-100" data-bs-toggle="modal" data-bs-target="#replyModal"
-                data-bs-id="{{ post.id }}">
-            <i class="fa-regular fa-comments"></i>
-        </button>
+        {% if app.user %}
+            <button class="btn btn-light text-primary w-100" data-bs-toggle="modal" data-bs-target="#replyModal"
+                    data-bs-id="{{ post.id }}">
+                <i class="fa-regular fa-comments"></i>
+            </button>
+        {% else %}
+            <a href="{{ path('app_login') }}" class="btn btn-light text-primary w-100">
+                <i class="fa-regular fa-comments"></i>
+            </a>
+        {% endif %}
     </div>
 </div>
